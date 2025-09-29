@@ -13,7 +13,8 @@ global_asm!(include_str!("entry.asm"));
 #[unsafe(no_mangle)]
 pub fn rust_main() -> ! {
     clear_bss();
-    loop {}
+    println!("hello world!");
+    panic!("shutdown");
 }
 
 /// clear BSS segment
