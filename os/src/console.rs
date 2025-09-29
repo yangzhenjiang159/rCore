@@ -1,4 +1,4 @@
-// os/src/console.rs
+A// os/src/console.rs
 use crate::sbi::console_putchar;
 use core::fmt::{self, Write};
 

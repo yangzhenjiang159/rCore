@@ -2,10 +2,10 @@
 #![no_std]
 #![no_main]
 
-mod lang_items;
-mod sbi;
 #[macro_use]
 mod console;
+mod lang_items;
+mod sbi;
 
 use core::arch::global_asm;
 global_asm!(include_str!("entry.asm"));
@@ -13,8 +13,7 @@ global_asm!(include_str!("entry.asm"));
 #[unsafe(no_mangle)]
 pub fn rust_main() -> ! {
     clear_bss();
-    println!("Hello, world!");
-    panic!("Shutdown machine!");
+    loop {}
 }
 
 /// clear BSS segment
