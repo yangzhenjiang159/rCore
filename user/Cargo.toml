@@ -1,0 +1,31 @@
+[package]
+name = "user_lib"
+version = "0.1.0"
+edition = "2024"
+
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+buddy_system_allocator = "0.6"
+bitflags = "1.2.1"
+spin = "0.9"
+lock_api = "=0.4.6"
+lazy_static = { version = "1.4.0", features = ["spin_no_std"] }
+
+[profile.release]
+opt-level = "z" # Optimize for size.
+strip = true    # Automatically strip symbols from the binary.
+lto = true
+
+#你提供的内容是Rust项目中`Cargo.toml`文件的部分配置。以下是对这些配置的详细解释：
+#- **依赖项部分**：
+#- **buddy_system_allocator = "0.6"**：这是一个用于无标准库（no - std）环境的Rust内存分配器，基于伙伴系统算法，常用于嵌入式系统等场景，版本为0.6.0。
+#- **bitflags = "1.2.1"**：是一个Rust库，用于定义和操作带有标志的枚举类型，通过位操作来组合和检查多个标志，常用于权限管理、状态标识等场景，此处指定版本为1.2.1。
+#- **spin = "0.9"**：Spin是一个开源开发者工具，用于使用WebAssembly构建和运行无服务器函数和微服务，版本为0.9.0。
+#- **lock_api = "=0.4.6"**：该依赖可能与锁相关的API有关，用于提供线程同步等功能，指定版本为0.4.6。
+#- **lazy_static = { version = "1.4.0", features = ["spin_no_std"] }**：lazy_static是一个Rust库，用于延迟初始化静态变量。这里指定版本为1.4.0，并启用了"spin_no_std"特性，可能是为了在无标准库环境下与Spin相关功能配合使用。
+#- **发布配置部分**：
+#- **opt - level = "z"**：设置优化级别为"z"，表示针对二进制大小进行优化，同时会关闭循环向量化，适用于对程序体积有严格要求的场景。
+#- **strip = true**：等价于strip = "symbols"，表示自动去除二进制文件中的符号信息，这样可以减小二进制文件的大小，但可能会影响调试，不过在生产环境中通常不需要调试信息，所以这是一种常见的优化手段。
+#- **lto = true**：启用链接时优化（Link - Time Optimization），它可以在链接阶段对整个程序进行优化，通常能进一步提高程序性能或减小二进制文件大小。
