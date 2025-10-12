@@ -1,6 +1,6 @@
 //! Global logger
 
-use log::{Level, LevelFilter, Log, Metadata, Record};
+use log::{self, Level, LevelFilter, Log, Metadata, Record};
 
 /// a simple logger
 struct SimpleLogger;
@@ -35,13 +35,12 @@ impl Log for SimpleLogger {
 pub fn init() {
     static LOGGER: SimpleLogger = SimpleLogger;
     log::set_logger(&LOGGER).unwrap();
-    log::set_max_level(LevelFilter::Trace);
-    // log::set_max_level(match option_env!("LOG") {
-    //     Some("ERROR") => LevelFilter::Error,
-    //     Some("WARN") => LevelFilter::Warn,
-    //     Some("INFO") => LevelFilter::Info,
-    //     Some("DEBUG") => LevelFilter::Debug,
-    //     Some("TRACE") => LevelFilter::Trace,
-    //     _ => LevelFilter::Off,
-    // });
+    log::set_max_level(match option_env!("LOG") {
+        Some("ERROR") => LevelFilter::Error,
+        Some("WARN") => LevelFilter::Warn,
+        Some("INFO") => LevelFilter::Info,
+        Some("DEBUG") => LevelFilter::Debug,
+        Some("TRACE") => LevelFilter::Trace,
+        _ => LevelFilter::Off,
+    });
 }
