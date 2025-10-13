@@ -6,22 +6,12 @@ use crate::trap::TrapContext;
 use core::arch::asm;
 use lazy_static::*;
 
-/// 用户态栈大小
 const USER_STACK_SIZE: usize = 4096 * 2;
-/// 内核栈大小
 const KERNEL_STACK_SIZE: usize = 4096 * 2;
-/// 最大app数量
 const MAX_APP_NUM: usize = 16;
-/// app基地址
 const APP_BASE_ADDRESS: usize = 0x80400000;
-/// app大小限制
 const APP_SIZE_LIMIT: usize = 0x20000;
 
-/// 内存对齐属性：在 Rust 中，repr属性用于控制类型在内存中的表示形式，
-/// align参数则明确了对齐要求。设置为 4096 意味着该结构体在内存中的起始地址会是 4096 的倍数。
-/// 这样做通常是为了提高内存访问效率，尤其是对于一些对内存对齐有特定要求的硬件平台，
-/// 或者是为了满足某些底层系统编程的需求，例如与操作系统内核相关的代码，
-/// 确保数据访问符合特定的架构规范。
 #[repr(align(4096))]
 struct KernelStack {
     data: [u8; KERNEL_STACK_SIZE],
@@ -35,25 +25,20 @@ struct UserStack {
 static KERNEL_STACK: KernelStack = KernelStack {
     data: [0; KERNEL_STACK_SIZE],
 };
-
 static USER_STACK: UserStack = UserStack {
     data: [0; USER_STACK_SIZE],
 };
 
 impl KernelStack {
-    ///获取栈顶
     fn get_sp(&self) -> usize {
         self.data.as_ptr() as usize + KERNEL_STACK_SIZE
     }
-
     pub fn push_context(&self, cx: TrapContext) -> &'static mut TrapContext {
         let cx_ptr = (self.get_sp() - core::mem::size_of::<TrapContext>()) as *mut TrapContext;
         unsafe {
             *cx_ptr = cx;
         }
-        unsafe {
-            cx_ptr.as_mut().unwrap()
-        }
+        unsafe { cx_ptr.as_mut().unwrap() }
     }
 }
 
@@ -62,7 +47,6 @@ impl UserStack {
         self.data.as_ptr() as usize + USER_STACK_SIZE
     }
 }
-
 
 struct AppManager {
     num_app: usize,

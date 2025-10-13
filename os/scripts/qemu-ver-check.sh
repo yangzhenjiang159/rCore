@@ -1,4 +1,3 @@
-#!/bin/sh
 
 # Argument1: The filename of qemu executable, e.g. qemu-system-riscv64
 QEMU_PATH=$(which $1)
