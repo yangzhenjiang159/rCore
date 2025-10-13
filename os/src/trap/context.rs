@@ -2,9 +2,9 @@ use riscv::register::sstatus::{self, SPP, Sstatus};
 /// Trap Context
 #[repr(C)]
 pub struct TrapContext {
-    /// 通用寄存器[0..31]
+    /// general regs[0..31]
     pub x: [usize; 32],
-    /// CSR sstatus
+    /// CSR sstatus      
     pub sstatus: Sstatus,
     /// CSR sepc
     pub sepc: usize,
@@ -15,7 +15,6 @@ impl TrapContext {
     pub fn set_sp(&mut self, sp: usize) {
         self.x[2] = sp;
     }
-
     /// init app context
     pub fn app_init_context(entry: usize, sp: usize) -> Self {
         let mut sstatus = sstatus::read(); // CSR sstatus
