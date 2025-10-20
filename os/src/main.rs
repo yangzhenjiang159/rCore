@@ -19,6 +19,10 @@
 
 use core::arch::global_asm;
 use log::*;
+
+#[path = "boards/qemu.rs"]
+mod board;
+
 #[macro_use]
 mod console;
 mod config;
