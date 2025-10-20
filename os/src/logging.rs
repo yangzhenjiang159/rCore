@@ -30,8 +30,6 @@ impl Log for SimpleLogger {
     }
     fn flush(&self) {}
 }
-
-/// initiate logger
 pub fn init() {
     static LOGGER: SimpleLogger = SimpleLogger;
     log::set_logger(&LOGGER).unwrap();
@@ -41,6 +39,6 @@ pub fn init() {
         Some("INFO") => LevelFilter::Info,
         Some("DEBUG") => LevelFilter::Debug,
         Some("TRACE") => LevelFilter::Trace,
-        _ => LevelFilter::Off,
+        _ => LevelFilter::Info,
     });
 }
