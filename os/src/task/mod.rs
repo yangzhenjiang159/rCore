@@ -6,7 +6,6 @@
 //!
 //! 当你在`switch.S`中看到`__switch`汇编函数时要小心。该函数周围的控制流可能与你的预期不符。
 
-
 mod context;
 mod switch;
 
@@ -136,34 +135,34 @@ impl TaskManager {
     }
 }
 
-    /// 运行第一个任务
-    pub fn run_first_task() {
-        TASK_MANAGER.run_first_task();
-    }
+/// 运行第一个任务
+pub fn run_first_task() {
+    TASK_MANAGER.run_first_task();
+}
 
-    /// 运行下一个任务
-    fn run_next_task() {
-        TASK_MANAGER.run_next_task();
-    }
+/// 运行下一个任务
+fn run_next_task() {
+    TASK_MANAGER.run_next_task();
+}
 
-    /// 暂停当前任务
-    fn mark_current_suspended() {
-        TASK_MANAGER.mark_current_suspended();
-    }
+/// 暂停当前任务
+fn mark_current_suspended() {
+    TASK_MANAGER.mark_current_suspended();
+}
 
-    /// 退出当前任务
-    fn mark_current_exited() {
-        TASK_MANAGER.mark_current_exited();
-    }
+/// 退出当前任务
+fn mark_current_exited() {
+    TASK_MANAGER.mark_current_exited();
+}
 
-    /// 暂停当前任务，然后运行下一个任务
-    pub fn suspend_current_and_run_next() {
-        mark_current_suspended();
-        run_next_task();
-    }
+/// 暂停当前任务，然后运行下一个任务
+pub fn suspend_current_and_run_next() {
+    mark_current_suspended();
+    run_next_task();
+}
 
-    /// 退出当前任务，然后运行下一个任务
-    pub fn exit_current_and_run_next() {
-        mark_current_exited();
-        run_next_task();
-    }
+/// 退出当前任务，然后运行下一个任务
+pub fn exit_current_and_run_next() {
+    mark_current_exited();
+    run_next_task();
+}
