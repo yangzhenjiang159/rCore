@@ -134,7 +134,7 @@ impl TaskManager {
             shutdown(false);
         }
     }
-
+}
 
     /// 运行第一个任务
     pub fn run_first_task() {
@@ -167,4 +167,3 @@ impl TaskManager {
         mark_current_exited();
         run_next_task();
     }
-}
