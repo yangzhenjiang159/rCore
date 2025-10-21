@@ -56,7 +56,7 @@ fn get_base_i(app_id: usize) -> usize {
 /// 获取应用总数
 pub fn get_num_app() -> usize {
     unsafe extern "C" {
-        safe fn _num_app();
+        fn _num_app();
     }
     unsafe { (_num_app as usize as *const usize).read_volatile() }
 }
@@ -66,7 +66,7 @@ pub fn get_num_app() -> usize {
 /// [APP_BASE_ADDRESS + n * APP_SIZE_LIMIT, APP_BASE_ADDRESS + (n+1) * APP_SIZE_LIMIT).
 pub fn load_apps() {
     unsafe extern "C" {
-        safe fn _num_app();
+        fn _num_app();
     }
     let num_app_ptr = _num_app as usize as *const usize;
     let num_app = get_num_app();

@@ -11,7 +11,7 @@ global_asm!(include_str!("switch.S"));
 
 unsafe extern "C" {
     /// 切换到`next_task_cx_ptr`的上下文，并将当前上下文保存到`current_task_cx_ptr`中。
-    pub unsafe fn __switch(
+    pub fn __switch(
         current_task_cx_ptr: *mut TaskContext,
         next_task_cx_ptr: *const TaskContext,
     );
