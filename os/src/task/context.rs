@@ -1,7 +1,7 @@
 //! TaskContext的实现
+use crate::trap::trap_return;
 
-/// Task Context
-#[derive(Copy, Clone)]
+/// 包含一些寄存器的任务上下文结构
 #[repr(C)]
 pub struct TaskContext {
     /// __switch 汇编函数的返回地址（例如 __restore）
@@ -22,13 +22,11 @@ impl TaskContext {
         }
     }
 
-    /// 设置任务上下文{__restore汇编函数、内核栈、s_0..12}
-    pub fn goto_restore(kstack_ptr: usize) -> Self {
-        unsafe extern "C" {
-            fn __restore();
-        }
+    /// set Task Context{__restore ASM funciton: trap_return, sp: kstack_ptr, s: s_0..12}
+    /// 设置任务上下文{__restore汇编函数：trap_return，栈指针：内核栈指针，s寄存器：s_0..12}
+    pub fn goto_trap_return(kstack_ptr: usize) -> Self {
         Self {
-            ra: __restore as usize,
+            ra: trap_return as usize,
             sp: kstack_ptr,
             s: [0; 12],
         }
