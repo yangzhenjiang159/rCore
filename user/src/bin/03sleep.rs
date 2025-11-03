@@ -6,7 +6,7 @@ extern crate user_lib;
 
 use user_lib::{get_time, yield_};
 
-#[unsafe(no_mangle)]
+#[no_mangle]
 fn main() -> i32 {
     let current_timer = get_time();
     let wait_for = current_timer + 3000;
