@@ -12,23 +12,23 @@ __switch:
     #     current_task_cx_ptr: *mut TaskContext,
     #     next_task_cx_ptr: *const TaskContext
     # )
-    # 保存当前任务的内核栈
+    # save kernel stack of current task
     sd sp, 8(a0)
-    # 保存当前执行的ra和s0~s11
+    # save ra & s0~s11 of current execution
     sd ra, 0(a0)
     .set n, 0
     .rept 12
         SAVE_SN %n
         .set n, n + 1
     .endr
-    # 恢复下一次执行的ra和s0~s11
+    # restore ra & s0~s11 of next execution
     ld ra, 0(a1)
     .set n, 0
     .rept 12
         LOAD_SN %n
         .set n, n + 1
     .endr
-    # 恢复下一个任务的内核栈
+    # restore kernel stack of next task
     ld sp, 8(a1)
     ret
 
