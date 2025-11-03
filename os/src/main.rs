@@ -46,9 +46,6 @@ pub mod trap;
 core::arch::global_asm!(include_str!("entry.asm"));
 core::arch::global_asm!(include_str!("link_app.S"));
 
-global_asm!(include_str!("entry.asm"));
-global_asm!(include_str!("link_app.S"));
-
 /// clear BSS segment
 fn clear_bss() {
     unsafe extern "C" {
