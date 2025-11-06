@@ -17,8 +17,14 @@ global_asm!(include_str!("entry.asm"));
 #[unsafe(no_mangle)]
 pub fn rust_main() -> ! {
     clear_bss();
-    kernel_log_info();
+    let mut a: i32 = 0;
+    a = add_two(a);
+    println!("add_two(a) = {}", a);
     panic!("shutdown");
+}
+
+fn add_two(x: i32) -> i32 {
+    x + 2
 }
 
 /// clear BSS segment
